@@ -539,6 +539,5 @@ class Agent:
 agent = Agent(
     api_key=os.getenv("AVANGENIO_API_KEY"),
     base_url="https://apigateway.avangenio.net",
-    proxy_url=os.getenv("HTTP_PROXY"),
     model=ModelType.AGENT_MD.value,
 )
