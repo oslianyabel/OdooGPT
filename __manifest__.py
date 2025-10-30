@@ -4,7 +4,7 @@
     "summary": "Odoo integration with OpenAI",
     "category": "Productivity/Discuss",
     "author": "Osliani - Soluciones DTeam",
-    "website": "https://www.dteam.cu",
+    "website": "",
     "license": "OPL-1",
     "depends": ["base", "mail", "calendar", "survey", "queue_job"],
     "data": [

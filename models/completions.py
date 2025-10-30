@@ -6,6 +6,7 @@ from concurrent.futures import ThreadPoolExecutor
 from typing import Any, Optional
 
 from dotenv import load_dotenv
+import httpx
 from openai import AsyncOpenAI, OpenAI
 
 from .enumerations import EffortType, MessageType, ModelType, VerbosityType
@@ -239,8 +240,11 @@ class AIClient:
                 return
 
         _logger.info("No proxy configured or invalid proxy URL")
-        self.__client = OpenAI(api_key=api_key, base_url=base_url)
-        self.__async_client = AsyncOpenAI(api_key=api_key, base_url=base_url)
+        # Create clients without proxy, explicitly disabling environment proxy detection
+        http_client = httpx.Client(trust_env=False)
+        async_http_client = httpx.AsyncClient(trust_env=False)
+        self.__client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)
+        self.__async_client = AsyncOpenAI(api_key=api_key, base_url=base_url, http_client=async_http_client)
 
     async def _async_gen_ai_output(self, params: dict):
         ai_output = await self.__async_client.client.chat.completions.create(**params)
@@ -539,6 +543,5 @@ class Agent:
 agent = Agent(
     api_key=os.getenv("AVANGENIO_API_KEY"),
     base_url="https://apigateway.avangenio.net",
-    proxy_url=os.getenv("HTTP_PROXY"),
     model=ModelType.AGENT_MD.value,
 )
