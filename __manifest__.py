@@ -6,7 +6,7 @@
     "author": "Osliani - Soluciones DTeam",
     "website": "https://www.dteam.cu",
     "license": "OPL-1",
-    "depends": ["base", "mail", "calendar", "survey"],
+    "depends": ["base", "mail", "calendar", "survey", "queue_job"],
     "data": [
         "security/ir.model.access.csv",
         "data/res_partner.xml",
